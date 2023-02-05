@@ -180,16 +180,10 @@ namespace CodeGenerator
             const string CLASS_NAME = "AddressableAssets";
             const string FILE_NAME = $"{CLASS_NAME}.cs";
 
-            List<AddressableAssetDef> allAssets = new List<AddressableAssetDef>();
-
             string[] keys = getAddressableKeys().ToArray();
+            AddressableAssetDef[] allAssets = getAllAssetDefs(keys).ToArray();
 
-            foreach (AddressableAssetDef assetDef in getAllAssetDefs(keys))
-            {
-                allAssets.Add(assetDef);
-            }
-
-            Log.Info($"Loaded {allAssets.Count}/{keys.Length} assets");
+            Log.Info($"Loaded {allAssets.Length}/{keys.Length} assets");
 
             StringBuilder sb = new StringBuilder();
 
@@ -226,7 +220,7 @@ namespace CodeGenerator
                 sb.AppendLine();
             }
 
-            sb.AppendLine($"// This class was automatically generated, used {allAssets.Count}/{keys.Length} asset keys");
+            sb.AppendLine($"// This class was automatically generated, used {allAssets.Length}/{keys.Length} asset keys");
 
             sb.AppendLine($"internal static class {CLASS_NAME}")
               .AppendLine("{");
@@ -257,12 +251,6 @@ namespace CodeGenerator
                         }
 
                         fieldName += $"_{usedCount}";
-
-                        usedFieldNamesCount.Add(fieldName, 1);
-                    }
-                    else
-                    {
-                        usedFieldNamesCount.Add(fieldName, 1);
                     }
 
                     if (fieldName == className)
@@ -270,6 +258,7 @@ namespace CodeGenerator
                         fieldName += '_';
                     }
 
+                    usedFieldNamesCount.Add(fieldName, 1);
                     sb.Append("\t\t");
 
                     switch (generationMode)
