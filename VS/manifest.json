@@ -1,0 +1,11 @@
+﻿{
+	"name": "CodeGenerator",
+	"authorName": "Gorakh",
+	"version_number": "0.0.0",
+	"website_url": "https://github.com/Goorakh/RoR2_CodeGenerator",
+	"description": "Generates Code",
+	"dependencies": [
+		"bbepis-BepInExPack-5.4.2100",
+		"RiskofThunder-HookGenPatcher-1.2.1"
+	]
+}
